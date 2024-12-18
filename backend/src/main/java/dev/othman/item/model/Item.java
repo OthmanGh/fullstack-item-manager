@@ -8,9 +8,8 @@ import jakarta.validation.constraints.NotNull;
 
 @Document(collection = "items")
 public class Item {
-
     @Id
-    private ObjectId id;
+    private String id;
     @NotBlank(message = "Name is required")
     private String name;
     @NotNull(message = "Price is required")
@@ -24,11 +23,11 @@ public class Item {
     }
 
     // Getters & Setters :)
-    public ObjectId getId(){
+    public String getId(){
         return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(String id) {
         this.id = id;
     }
 
