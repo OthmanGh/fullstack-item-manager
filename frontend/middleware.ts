@@ -7,7 +7,7 @@ export function middleware(request: NextRequest) {
   const authToken = request.cookies.get('authToken')?.value
 
   const routes = {
-    protected: ['/'],
+    protected: ['/items'],
     public: ['/login'],
   }
 
@@ -20,7 +20,7 @@ export function middleware(request: NextRequest) {
   }
 
   if (isPublicRoute && isAuthenticated) {
-    return NextResponse.redirect(new URL('/', request.url))
+    return NextResponse.redirect(new URL('/items', request.url))
   }
 
   return NextResponse.next()
