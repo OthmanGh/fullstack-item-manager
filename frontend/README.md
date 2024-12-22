@@ -1,36 +1,103 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js Frontend Application
 
-## Getting Started
+## Overview
 
-First, run the development server:
+This is a Next.js application that serves as the frontend for managing items. It integrates with the Spring Boot backend API to provide a full-stack experience.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+### Features
+
+- **Authentication**: Login with hardcoded credentials (admin/password).
+- **Item Management**:
+  - View a list of items.
+  - Add new items.
+  - Edit existing items.
+  - Delete items.
+- **Dynamic Routes**:
+  - View item details dynamically with URLs like `/items/[id]`.
+- **Clean UI Design**: Built with Tailwind CSS.
+- **Error Handling**: Displays friendly messages for API errors.
+
+---
+
+## Project Structure
+
+- **Routing**: Handled using Next.js' `app` directory.
+  - **Private Routes**: Pages for authenticated users only (`/items`, `/add-item`, `/edit-item`).
+  - **Public Routes**: Login page (`/login`).
+- **Components**: Reusable UI components located in the `components` folder.
+- **Hooks**: Custom React hooks for fetching and managing data.
+- **Types**: TypeScript interfaces and types stored in the `types` folder.
+- **Utils**: Utility folder for helper functions.
+
+---
+
+## Environment Variables
+
+Ensure the following environment variables are defined in a `.env` file:
+
+```env
+NEXT_PUBLIC_AUTH_HASH=YWRtaW46cGFzc3dvcmQ= # Base64 encoded credentials
+NEXT_PUBLIC_API_BASE_URL=http://localhost:8080/api/
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Setup Instructions
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Prerequisites
 
-## Learn More
+- Node.js (>= 16.x)
 
-To learn more about Next.js, take a look at the following resources:
+### Steps to Run
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Navigate to the frontend folder**:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   ```bash
+   cd frontend
+   ```
 
-## Deploy on Vercel
+2. **Install dependencies**:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ```bash
+   npm install
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3. **Run the development server**:
+
+   ```bash
+   npm run dev
+   ```
+
+4. **Access the application**:
+
+   Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+---
+
+## Docker Instructions
+
+### Building the Docker Image
+
+1. Create a Docker image for the frontend:
+
+   ```bash
+   docker build -t nextjs-frontend .
+   ```
+
+### Running the Docker Container
+
+1. Run the Docker container:
+
+   ```bash
+   docker run -p 3000:3000 --env-file .env nextjs-frontend
+   ```
+
+2. Access the application at [http://localhost:3000](http://localhost:3000).
+
+---
+
+## Notes
+
+- Ensure the backend is running and accessible via the base URL specified in the environment variables.
+- Uses TypeScript for type safety and better code quality.
+- Follows Next.js best practices for routing and API integration.
