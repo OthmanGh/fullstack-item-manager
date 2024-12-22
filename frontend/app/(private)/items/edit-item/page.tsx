@@ -1,8 +1,9 @@
 'use client'
+
+import { useEffect, useState, Suspense } from 'react'
 import BackButton from '@/components/ui/BackButton'
 import CustomForm from '@/components/ui/CustomForm'
 import { useSearchParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
 
 function EditItem() {
   const searchParams = useSearchParams()
@@ -44,4 +45,10 @@ function EditItem() {
   )
 }
 
-export default EditItem
+export default function EditItemWrapper() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <EditItem />
+    </Suspense>
+  )
+}
