@@ -6,13 +6,17 @@ export function middleware(request: NextRequest) {
   const validToken = process.env.NEXT_PUBLIC_AUTH_HASH
   const authToken = request.cookies.get('authToken')?.value
 
-  const routes = {
-    protected: ['/items'],
-    public: ['/login'],
-  }
+  const protectedPatterns = [
+    /^\/items\/[\w-]+$/,
+    /^\/items\/edit-items\/[\w-]+$/,
+    /^\/items\/add-item$/,
+    /^\/$/,
+  ]
 
-  const isProtectedRoute = routes.protected.includes(pathname)
-  const isPublicRoute = routes.public.includes(pathname)
+  const isProtectedRoute = protectedPatterns.some((pattern) =>
+    pattern.test(pathname)
+  )
+  const isPublicRoute = pathname === '/login'
   const isAuthenticated = authToken === validToken
 
   if (isProtectedRoute && !isAuthenticated) {
@@ -20,12 +24,18 @@ export function middleware(request: NextRequest) {
   }
 
   if (isPublicRoute && isAuthenticated) {
-    return NextResponse.redirect(new URL('/items', request.url))
+    return NextResponse.redirect(new URL('/', request.url))
   }
 
   return NextResponse.next()
 }
 
 export const config = {
-  matcher: ['/:path*', '/login'],
+  matcher: [
+    '/items/:path*',
+    '/items/add-item',
+    '/items/edit-items/:path*',
+    '/',
+    '/login',
+  ],
 }

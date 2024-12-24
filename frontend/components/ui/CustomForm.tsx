@@ -19,8 +19,6 @@ function CustomForm({ initialState, endpoint, action }: CustomFormProps) {
     ? 'Edit Item'
     : 'Add Item'
 
-  console.log(submitButtonText)
-
   useEffect(() => {
     if (errors.root?.message) {
       showToast.error(errors.root.message)
@@ -116,7 +114,7 @@ function CustomForm({ initialState, endpoint, action }: CustomFormProps) {
       <div className='flex flex-col sm:flex-row gap-4 mt-4'>
         <Button
           type='submit'
-          label={isSubmitting ? 'Adding...' : 'Add Item'}
+          label={isSubmitting ? 'Loading...' : submitButtonText}
           className='bg-primary text-white'
           isSubmitting={isSubmitting}
         />
