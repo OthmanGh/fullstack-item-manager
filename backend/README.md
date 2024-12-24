@@ -31,7 +31,7 @@ This is a Spring Boot application that provides a RESTful API for managing items
 Create a `.env` file in the `backend` directory with the following variables:
 
 ```env
-SPRING_DATA_MONGODB_URI=mongodb://localhost:27017/itemsdb
+MONGODB_URI=mongodb://localhost:27017/itemsdb
 ```
 
 ---
